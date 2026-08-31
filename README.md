@@ -4,7 +4,7 @@
 
 **AICTE - EduSkills Virtual Internship Program** | Domain: AI Deployment & Automation
 
-This repository contains my internship report, presentation, and completion credentials for the AI Deployment & Automation track of the AICTE - EduSkills Virtual Internship Program (June 2026 - August 2026), along with the project built during the internship: an **AI Resume Analyzer and Job Compatibility System**.
+This repository contains my internship report, presentation, and completion credentials for the AI Deployment & Automation track of the AICTE - EduSkills Virtual Internship Program (July 2026 - August 2026), along with the project built during the internship: an **AI Resume Analyzer and Job Compatibility System**.
 
 ---
 
@@ -17,7 +17,7 @@ This repository contains my internship report, presentation, and completion cred
 | Institute | IILM University, Greater Noida, U.P. |
 | Programme | B.Tech CSE, Batch 2024-2028 |
 | Internship Domain | AI Deployment & Automation |
-| Duration | 8 Weeks (June 2026 - August 2026) |
+| Duration | 8 Weeks (July 2026 - August 2026) |
 | GitHub | @saanvi086 |
 
 ---
@@ -66,38 +66,36 @@ It followed a structured, week-wise curriculum combining conceptual learning, gu
 
 ## 🚀 Project: AI Resume Analyzer and Job Compatibility System
 
-The project built during this internship takes a resume and a target job role, and returns a clear picture of how well the two match.
+The project built during this internship takes a resume, finds real job listings for it, and returns a clear picture of how well the candidate matches them.
 
 **The problem.** A candidate looking for a job runs into a simple practical limit: there are far more openings than any one person can read. Checking every job description against your own resume, skill by skill, is something you can do for five jobs but not for five hundred. And when an application is rejected, nobody tells you which requirement you failed to meet, so you never learn which skill is actually holding you back.
 
-**What the system does.** The user uploads a resume and selects a target job role. The system reads the resume, collects real job listings for that role, works out what each listing requires, and reports which skills match, which are missing, and what is most useful to learn next. It is not restricted to technology roles: the target role can be a software developer, a data analyst, a chartered accountant, a banker or any other profession, because the system works from whatever the resume states and whatever the listing asks for.
+**What the system does.** The user uploads a resume. The system reads it, scrapes real job listings from the web, works out what each listing requires, and reports which skills match, which are missing, and what is most useful to learn next. It is not restricted to technology roles: the candidate can be a software developer, a data analyst, a chartered accountant, a banker or any other professional, because the system works from whatever the resume states and whatever the listing asks for.
 
 ### How it works
 
 | Stage | What happens |
 |---|---|
-| 1. Input and text extraction | The user uploads a resume and selects a target job role. The file type and role are validated, and the resume is converted into plain text. |
+| 1. Upload, extraction and storage | The user uploads a resume. The file type is validated, and the resume is converted into plain text and stored so it can be searched during matching. |
 | 2. Resume analysis | The Resume Analysis Agent reads the text and produces a structured profile of the candidate: skills, tools, education, experience, projects and certifications. It records only what the resume actually states. |
-| 3. Job retrieval and analysis | Job listings for the chosen role are collected from a public jobs API. The Job Analysis Agent reads each description and lists what it asks for, separating essential skills from preferred ones. |
+| 3. Job retrieval and analysis | Job listings are scraped from the web, guided by the roles the candidate profile points to. The Job Analysis Agent reads each description and lists what it asks for, separating essential skills from preferred ones. |
 | 4. Matching and scoring | The candidate profile and the job requirements are compared. A skills knowledge base is used to recognise related technologies. A compatibility score is calculated and matched, missing and related skills are listed. |
 | 5. Output | The result is returned as a score, a match band, and a short set of recommendations on what to learn next. |
 
 ### Architecture
 
 ```
-Resume Upload + Target Job Role
+        Resume Upload
               |
-     Workflow Orchestration
+   Text Extraction and Storage
               |
-      Resume Text Extraction
+     Resume Analysis Agent
               |
-      Resume Analysis Agent
+      Job Analysis Agent          (scrapes job listings from the web)
               |
-Job Listings API  ->  Job Analysis Agent
+     Matching and Scoring
               |
-Skills Knowledge Base (RAG)  ->  Matching and Scoring
-              |
-   Compatibility Report returned to the user
+     Compatibility Score
 ```
 
 ### How the score works
@@ -119,7 +117,7 @@ The result is a percentage: **75 and above** is a strong match, **50 to 74** a m
 | **FastAPI** | Powers the backend service that calculates the score. The score must come out the same every time for the same input, so it is worked out in code rather than by the model. |
 | **Retrieval-Augmented Generation (RAG)** | A small knowledge base of skills and related technologies is searched during matching, so a candidate is credited for skills close to what a listing asks for. |
 | **Docker** | Packages the backend service with everything it needs, so it runs identically anywhere and sits alongside the workflow as a container. |
-| **Public Jobs API** | Supplies real job listings for the selected role, including the full job description. The current build uses the Remotive jobs API. |
+| **Apify** | A web scraping platform used to collect job listings from the internet. It runs a scraper against whichever job site is needed and returns the listings with their full job descriptions. |
 
 `Python` · `n8n` · `FastAPI` · `Docker` · `LLM Agents` · `RAG` · `Vector Search` · `REST APIs` · `Workflow Automation`
 
@@ -182,7 +180,7 @@ Certificate authenticity can be verified via the QR code printed on the certific
 - FastAPI Documentation: https://fastapi.tiangolo.com/
 - Docker Documentation: https://docs.docker.com/
 - LangChain Documentation: https://python.langchain.com/
-- Remotive Jobs API: https://remotive.com/api/remote-jobs
+- Apify Documentation: https://docs.apify.com/
 - Retrieval-Augmented Generation (Lewis et al., NeurIPS 2020): https://arxiv.org/abs/2005.11401
 
 ---
